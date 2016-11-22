@@ -33,10 +33,7 @@ namespace ProjectData.Persistence
 
         public int GetDbDataCount(bool isAutoQuery, string startTime, string endTime)
         {
-            var ht = new Hashtable();
-            ht.Add("IsAutoQuery", isAutoQuery);
-            ht.Add("StartTime", startTime);
-            ht.Add("EndTime", endTime);
+            var ht = new Hashtable {{"IsAutoQuery", isAutoQuery}, {"StartTime", startTime}, {"EndTime", endTime}};
             var dt = ExecuteQueryForDataTable("QueryDbDataCount", ht);
             if (dt.Rows.Count > 0)
             {

@@ -7,9 +7,9 @@ namespace ProjectData.DomainModel
 {
     public class ProjectDataDomainModel
     {
-        private static ProjectDataDomainModel instance;
-        private static readonly object syncObj = new object();
-        private readonly ProjectDataDaoService daoService = new ProjectDataDaoService();
+        private static ProjectDataDomainModel _instance;
+        private static readonly object SyncObj = new object();
+        private readonly ProjectDataDaoService _daoService = new ProjectDataDaoService();
 
         private ProjectDataDomainModel()
         {
@@ -19,44 +19,44 @@ namespace ProjectData.DomainModel
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    lock (syncObj)
+                    lock (SyncObj)
                     {
-                        if (instance == null)
+                        if (_instance == null)
                         {
-                            instance = new ProjectDataDomainModel();
+                            _instance = new ProjectDataDomainModel();
                         }
                     }
                 }
-                return instance;
+                return _instance;
             }
         }
 
         public IList<DbData> GetDbData(bool isAutoQuery, string startTime, string endTime, int pageNumber, int pageSize)
         {
-            return daoService.GetDbData(isAutoQuery, startTime, endTime, pageNumber, pageSize);
+            return _daoService.GetDbData(isAutoQuery, startTime, endTime, pageNumber, pageSize);
         }
 
         public DataTable GetDbDataForDataTable(bool isAutoQuery, string startTime, string endTime, int pageNumber,
             int pageSize)
         {
-            return daoService.GetDbDataForDataTable(isAutoQuery, startTime, endTime, pageNumber, pageSize);
+            return _daoService.GetDbDataForDataTable(isAutoQuery, startTime, endTime, pageNumber, pageSize);
         }
 
         public int GetDbDataCount(bool isAutoQuery, string startTime, string endTime)
         {
-            return daoService.GetDbDataCount(isAutoQuery, startTime, endTime);
+            return _daoService.GetDbDataCount(isAutoQuery, startTime, endTime);
         }
 
         public object InsertDbData(DbData data)
         {
-            return daoService.InsertDbData(data);
+            return _daoService.InsertDbData(data);
         }
 
         public object InsertDbSms(DbSms data)
         {
-            return daoService.InsertDbSms(data);
+            return _daoService.InsertDbSms(data);
         }
     }
 }

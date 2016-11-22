@@ -12,7 +12,7 @@ namespace ProjectData.DomainModel
             get { return new[] {'\t'}; }
         }
 
-        public string ExportDataToCSV(DataTable dataTable)
+        public string ExportDataToCsv(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Columns.Count == 0 || dataTable.Rows.Count == 0)
             {
@@ -28,14 +28,12 @@ namespace ProjectData.DomainModel
 
             using (var writer = new StreamWriter(csvPath + fileName, false, Encoding.Unicode))
             {
-                var column = string.Empty;
-                column = CreateColumn(dataTable);
+                var column = CreateColumn(dataTable);
                 writer.WriteLine(column);
 
-                var line = string.Empty;
                 foreach (DataRow row in dataTable.Rows)
                 {
-                    line = CreateLine(row);
+                    var line = CreateLine(row);
                     writer.WriteLine(line);
                 }
                 writer.Flush();

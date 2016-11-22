@@ -26,7 +26,7 @@ namespace ProjectData.UI.Controllers
             var helper = new CsvHelper();
             var dt = ProjectDataDomainModel.Instance.GetDbDataForDataTable(isAutoQuery, startTime, endTime, pageNumber,
                 pageSize);
-            var temp = helper.ExportDataToCSV(dt);
+            var temp = helper.ExportDataToCsv(dt);
             if (string.IsNullOrEmpty(temp))
             {
                 Response.Write("无返回结果，请修改查询条件后重试！");
