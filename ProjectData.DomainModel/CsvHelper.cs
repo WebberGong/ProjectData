@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace ProjectData.DomainModel
 {
     public class CsvHelper
     {
+        private char[] SplitChar
+        {
+            get { return new[] {'\t'}; }
+        }
+
         public string ExportDataToCSV(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Columns.Count == 0 || dataTable.Rows.Count == 0)
@@ -16,20 +19,20 @@ namespace ProjectData.DomainModel
                 return string.Empty;
             }
 
-            string csvPath = AppDomain.CurrentDomain.BaseDirectory + "TempFiles\\";
-            string fileName = Guid.NewGuid().ToString() + ".csv";
-            if (!System.IO.Directory.Exists(csvPath))
+            var csvPath = AppDomain.CurrentDomain.BaseDirectory + "TempFiles\\";
+            var fileName = Guid.NewGuid() + ".csv";
+            if (!Directory.Exists(csvPath))
             {
-                System.IO.Directory.CreateDirectory(csvPath);
+                Directory.CreateDirectory(csvPath);
             }
 
-            using (StreamWriter writer = new StreamWriter(csvPath + fileName, false, System.Text.UnicodeEncoding.Unicode))
+            using (var writer = new StreamWriter(csvPath + fileName, false, Encoding.Unicode))
             {
-                string column = string.Empty;
+                var column = string.Empty;
                 column = CreateColumn(dataTable);
                 writer.WriteLine(column);
 
-                string line = string.Empty;
+                var line = string.Empty;
                 foreach (DataRow row in dataTable.Rows)
                 {
                     line = CreateLine(row);
@@ -42,9 +45,9 @@ namespace ProjectData.DomainModel
 
         private string CreateLine(DataRow row)
         {
-            int count = row.ItemArray.Length;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count; i++)
+            var count = row.ItemArray.Length;
+            var sb = new StringBuilder();
+            for (var i = 0; i < count; i++)
             {
                 if (i == count - 1)
                 {
@@ -61,9 +64,9 @@ namespace ProjectData.DomainModel
 
         private string CreateColumn(DataTable dataTable)
         {
-            int count = dataTable.Columns.Count;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count; i++)
+            var count = dataTable.Columns.Count;
+            var sb = new StringBuilder();
+            for (var i = 0; i < count; i++)
             {
                 if (i == count - 1)
                 {
@@ -76,14 +79,6 @@ namespace ProjectData.DomainModel
             }
 
             return sb.ToString();
-        }
-
-        private char[] SplitChar
-        {
-            get
-            {
-                return new char[] { '\t' };
-            }
         }
     }
 }

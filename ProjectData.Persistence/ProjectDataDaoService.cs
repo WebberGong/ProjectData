@@ -1,11 +1,7 @@
-﻿using Boco.Rios.Framework.Persistence;
-using ProjectData.Entity;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Boco.Rios.Framework.Persistence;
+using ProjectData.Entity;
 
 namespace ProjectData.Persistence
 {
@@ -16,7 +12,8 @@ namespace ProjectData.Persistence
             return Dao.GetDbData(isAutoQuery, startTime, endTime, pageNumber, pageSize);
         }
 
-        public DataTable GetDbDataForDataTable(bool isAutoQuery, string startTime, string endTime, int pageNumber, int pageSize)
+        public DataTable GetDbDataForDataTable(bool isAutoQuery, string startTime, string endTime, int pageNumber,
+            int pageSize)
         {
             return Dao.GetDbDataForDataTable(isAutoQuery, startTime, endTime, pageNumber, pageSize);
         }

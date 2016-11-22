@@ -10,7 +10,8 @@
         <h2>关联你的 <%: ViewBag.ProviderDisplayName %> 帐户。</h2>
     </hgroup>
 
-    <% using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) { %>
+    <% using (Html.BeginForm("ExternalLoginConfirmation", "Account", new {ViewBag.ReturnUrl}))
+       { %>
         <%: Html.AntiForgeryToken() %>
         <%: Html.ValidationSummary(true) %>
 
@@ -29,7 +30,7 @@
                 </li>
             </ol>
             <%: Html.HiddenFor(m => m.ExternalLoginData) %>
-            <input type="submit" value="注册" />
+            <input type="submit" value="注册"/>
         </fieldset>
     <% } %>
 </asp:Content>

@@ -1,11 +1,7 @@
-﻿using ProjectData.Data;
+﻿using System.Collections.Generic;
+using ProjectData.Data;
 using ProjectData.Entity;
 using ServiceStack.ServiceClient.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectData.Client
 {
@@ -15,7 +11,7 @@ namespace ProjectData.Client
         {
             using (var client = new JsonServiceClient(url))
             {
-                return client.Send<IList<DbData>>(new GetDbDataRequest() { StartTime = startTime, EndTime = endTime });
+                return client.Send<IList<DbData>>(new GetDbDataRequest {StartTime = startTime, EndTime = endTime});
             }
         }
 

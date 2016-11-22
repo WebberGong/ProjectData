@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProjectData.UI;
-using ProjectData.UI.Controllers;
 using ProjectData.Client;
 using ProjectData.Entity;
+using ProjectData.UI.Controllers;
 
 namespace ProjectData.UI.Tests.Controllers
 {
@@ -17,11 +13,17 @@ namespace ProjectData.UI.Tests.Controllers
         [TestMethod]
         public void Index()
         {
-            HomeController controller = new HomeController();
-            ViewResult result = controller.Index() as ViewResult;
+            var controller = new HomeController();
+            var result = controller.Index() as ViewResult;
 
-            ProjectDataClient client = new ProjectDataClient();
-            object obj = client.InsertDbSms("http://localhost:47921/api/", new DbSms() { Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), IsAlarm = true, AlarmContent = "Test-" + new Random().Next(0, 9999).ToString().PadLeft(4, '0') });
+            var client = new ProjectDataClient();
+            var obj = client.InsertDbSms("http://localhost:47921/api/",
+                new DbSms
+                {
+                    Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    IsAlarm = true,
+                    AlarmContent = "Test-" + new Random().Next(0, 9999).ToString().PadLeft(4, '0')
+                });
         }
     }
 }

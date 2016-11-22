@@ -1,19 +1,15 @@
-﻿using ProjectData.Entity;
-using ProjectData.Persistence;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProjectData.Entity;
+using ProjectData.Persistence;
 
 namespace ProjectData.DomainModel
 {
     public class ProjectDataDomainModel
     {
         private static ProjectDataDomainModel instance;
-        private static object syncObj = new object();
-        private ProjectDataDaoService daoService = new ProjectDataDaoService();
+        private static readonly object syncObj = new object();
+        private readonly ProjectDataDaoService daoService = new ProjectDataDaoService();
 
         private ProjectDataDomainModel()
         {
@@ -42,7 +38,8 @@ namespace ProjectData.DomainModel
             return daoService.GetDbData(isAutoQuery, startTime, endTime, pageNumber, pageSize);
         }
 
-        public DataTable GetDbDataForDataTable(bool isAutoQuery, string startTime, string endTime, int pageNumber, int pageSize)
+        public DataTable GetDbDataForDataTable(bool isAutoQuery, string startTime, string endTime, int pageNumber,
+            int pageSize)
         {
             return daoService.GetDbDataForDataTable(isAutoQuery, startTime, endTime, pageNumber, pageSize);
         }

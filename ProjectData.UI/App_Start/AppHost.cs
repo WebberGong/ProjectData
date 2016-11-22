@@ -2,30 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using ServiceStack.WebHost.Endpoints;
+using Funq;
 using ProjectData.Service;
+using ProjectData.UI;
+using ServiceStack.WebHost.Endpoints;
+using WebActivator;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(ProjectData.UI.AppHost), "Start")]
+[assembly: PreApplicationStartMethod(typeof (AppHost), "Start")]
+
 namespace ProjectData.UI
 {
     public class AppHost : AppHostBase
     {
-        private static Dictionary<string, string> serviceUrl = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> serviceUrl = new Dictionary<string, string>();
 
         private AppHost()
-            : base("ProjectData.Service", typeof(ProjectDataService).Assembly)
+            : base("ProjectData.Service", typeof (ProjectDataService).Assembly)
         {
         }
 
         public static Dictionary<string, string> ServiceUrl
         {
-            get
-            {
-                return serviceUrl;
-            }
+            get { return serviceUrl; }
         }
 
-        public override void Configure(Funq.Container container)
+        public override void Configure(Container container)
         {
         }
 
@@ -39,13 +40,13 @@ namespace ProjectData.UI
 
         private static void FillServiceUrl()
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ServiceConfig.xml"));
-            XmlNodeList serviceConfig = doc.GetElementsByTagName("ServiceConfig");
+            var serviceConfig = doc.GetElementsByTagName("ServiceConfig");
             foreach (XmlNode node in serviceConfig)
             {
-                string key = "";
-                string value = "";
+                var key = "";
+                var value = "";
                 foreach (XmlNode childNode in node.ChildNodes)
                 {
                     if (childNode.Name == "ServiceName")

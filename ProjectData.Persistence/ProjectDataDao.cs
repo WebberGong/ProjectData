@@ -1,12 +1,8 @@
-﻿using Boco.Rios.Framework.Persistence;
-using ProjectData.Entity;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Boco.Rios.Framework.Persistence;
+using ProjectData.Entity;
 
 namespace ProjectData.Persistence
 {
@@ -14,7 +10,7 @@ namespace ProjectData.Persistence
     {
         public IList<DbData> GetDbData(bool isAutoQuery, string startTime, string endTime, int pageNumber, int pageSize)
         {
-            Hashtable ht = new Hashtable();
+            var ht = new Hashtable();
             ht.Add("IsAutoQuery", isAutoQuery);
             ht.Add("StartTime", startTime);
             ht.Add("EndTime", endTime);
@@ -23,9 +19,10 @@ namespace ProjectData.Persistence
             return ExecuteQueryForList<DbData>("QueryDbData", ht);
         }
 
-        public DataTable GetDbDataForDataTable(bool isAutoQuery, string startTime, string endTime, int pageNumber, int pageSize)
+        public DataTable GetDbDataForDataTable(bool isAutoQuery, string startTime, string endTime, int pageNumber,
+            int pageSize)
         {
-            Hashtable ht = new Hashtable();
+            var ht = new Hashtable();
             ht.Add("IsAutoQuery", isAutoQuery);
             ht.Add("StartTime", startTime);
             ht.Add("EndTime", endTime);
@@ -36,11 +33,11 @@ namespace ProjectData.Persistence
 
         public int GetDbDataCount(bool isAutoQuery, string startTime, string endTime)
         {
-            Hashtable ht = new Hashtable();
+            var ht = new Hashtable();
             ht.Add("IsAutoQuery", isAutoQuery);
             ht.Add("StartTime", startTime);
             ht.Add("EndTime", endTime);
-            DataTable dt = ExecuteQueryForDataTable("QueryDbDataCount", ht);
+            var dt = ExecuteQueryForDataTable("QueryDbDataCount", ht);
             if (dt.Rows.Count > 0)
             {
                 return int.Parse(dt.Rows[0][0].ToString());

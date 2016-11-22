@@ -1,45 +1,47 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--定义一个sqlMap映射，可以有多个-->
-<sqlMap namespace="ProjectData" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<sqlMap namespace="ProjectData" xmlns="http://ibatis.apache.org/mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <!--定义别名-->
   <alias>
-    <typeAlias alias="DbData" type="ProjectData.Entity.DbData,ProjectData.Entity"/>
-    <typeAlias alias="DbSms" type="ProjectData.Entity.DbSms,ProjectData.Entity"/>
+    <typeAlias alias="DbData" type="ProjectData.Entity.DbData,ProjectData.Entity" />
+    <typeAlias alias="DbSms" type="ProjectData.Entity.DbSms,ProjectData.Entity" />
   </alias>
 
   <!--定义结果映射-->
   <resultMaps>
     <resultMap id="DbSmsResult" class="DbSms">
-      <result column="日期时刻" property="Time"/>
-      <result column="是否报警" property="IsAlarm"/>
-      <result column="报警内容" property="AlarmContent"/>
+      <result column="日期时刻" property="Time" />
+      <result column="是否报警" property="IsAlarm" />
+      <result column="报警内容" property="AlarmContent" />
     </resultMap>
 
     <resultMap id="DbDataResult" class="DbData">
-      <result column="序号" property="RowNum"/>
-      <result column="日期时刻" property="RiQiShiKe"/>
-      <result column="盘号" property="PanHao"/>
-      <result column="配比号" property="PeiBiHao"/>
-      <result column="车号" property="CheHao"/>
-      <result column="客户号" property="KeHuHao"/>
-      <result column="骨料6" property="GuLiao6"/>
-      <result column="骨料5" property="GuLiao5"/>
-      <result column="骨料4" property="GuLiao4"/>
-      <result column="骨料3" property="GuLiao3"/>
-      <result column="骨料2" property="GuLiao2"/>
-      <result column="骨料1" property="GuLiao1"/>
-      <result column="石粉3" property="ShiFen3"/>
-      <result column="石粉2" property="ShiFen2"/>
-      <result column="石粉1" property="ShiFen1"/>
-      <result column="沥青" property="LiQing"/>
-      <result column="合计Kg" property="HeJi"/>
-      <result column="一仓温度" property="YiCangWd"/>
-      <result column="混合料温度" property="HunHeLiaoWd"/>
-      <result column="除尘器入口温度" property="ChuChenQiWd"/>
-      <result column="沥青温度" property="LiQingWd"/>
-      <result column="骨料温度" property="GuLiaoWd"/> 
+      <result column="序号" property="RowNum" />
+      <result column="日期时刻" property="RiQiShiKe" />
+      <result column="盘号" property="PanHao" />
+      <result column="配比号" property="PeiBiHao" />
+      <result column="车号" property="CheHao" />
+      <result column="客户号" property="KeHuHao" />
+      <result column="骨料6" property="GuLiao6" />
+      <result column="骨料5" property="GuLiao5" />
+      <result column="骨料4" property="GuLiao4" />
+      <result column="骨料3" property="GuLiao3" />
+      <result column="骨料2" property="GuLiao2" />
+      <result column="骨料1" property="GuLiao1" />
+      <result column="石粉3" property="ShiFen3" />
+      <result column="石粉2" property="ShiFen2" />
+      <result column="石粉1" property="ShiFen1" />
+      <result column="沥青" property="LiQing" />
+      <result column="合计Kg" property="HeJi" />
+      <result column="一仓温度" property="YiCangWd" />
+      <result column="混合料温度" property="HunHeLiaoWd" />
+      <result column="除尘器入口温度" property="ChuChenQiWd" />
+      <result column="沥青温度" property="LiQingWd" />
+      <result column="骨料温度" property="GuLiaoWd" />
     </resultMap>
-    
+
   </resultMaps>
 
   <statements>
@@ -83,7 +85,7 @@
         WHERE RiQiShiKe BETWEEN '$StartTime$' AND '$EndTime$'
       </isNotEqual>
     </select>
-    
+
     <insert id="InsertDbData" parameterClass="DbData">
       INSERT INTO dbData
       (

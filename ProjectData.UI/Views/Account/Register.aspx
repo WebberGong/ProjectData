@@ -10,7 +10,8 @@
         <h2>新建帐户。</h2>
     </hgroup>
 
-    <% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm())
+       { %>
         <%: Html.AntiForgeryToken() %>
         <%: Html.ValidationSummary() %>
 
@@ -30,7 +31,7 @@
                     <%: Html.PasswordFor(m => m.ConfirmPassword) %>
                 </li>
             </ol>
-            <input type="submit" value="注册" />
+            <input type="submit" value="注册"/>
         </fieldset>
     <% } %>
 </asp:Content>

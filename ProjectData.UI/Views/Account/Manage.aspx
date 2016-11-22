@@ -9,21 +9,25 @@
         <h1>管理帐户。</h1>
     </hgroup>
 
-    <p class="message-success"><%: (string)ViewBag.StatusMessage %></p>
+    <p class="message-success"><%: (string) ViewBag.StatusMessage %></p>
 
-    <p>你已使用 <strong><%: User.Identity.Name %></strong> 身份登录。</p>
+    <p>你已使用 <strong><%: User.Identity.Name %></strong> 身份登录。
+    </p>
 
-    <% if (ViewBag.HasLocalPassword) {
-        Html.RenderPartial("_ChangePasswordPartial");
-    } else {
-        Html.RenderPartial("_SetPasswordPartial");
-    } %>
+    <% if (ViewBag.HasLocalPassword)
+       {
+           Html.RenderPartial("_ChangePasswordPartial");
+       }
+       else
+       {
+           Html.RenderPartial("_SetPasswordPartial");
+       } %>
 
     <section id="externalLogins">
         <%: Html.Action("RemoveExternalLogins") %>
 
         <h3>添加外部登录</h3>
-        <%: Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl }) %>
+        <%: Html.Action("ExternalLoginsList", new {ViewBag.ReturnUrl}) %>
     </section>
 </asp:Content>
 
