@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--定义一个sqlMap映射，可以有多个-->
+<sqlMap namespace="ProjectData" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <!--定义别名-->
+  <alias>
+    <typeAlias alias="DbData" type="ProjectData.Entity.DbData,ProjectData.Entity"/>
+    <typeAlias alias="DbSms" type="ProjectData.Entity.DbSms,ProjectData.Entity"/>
+  </alias>
+
+  <!--定义结果映射-->
+  <resultMaps>
+    <resultMap id="DbSmsResult" class="DbSms">
+      <result column="日期时刻" property="Time"/>
+      <result column="是否报警" property="IsAlarm"/>
+      <result column="报警内容" property="AlarmContent"/>
+    </resultMap>
+
+    <resultMap id="DbDataResult" class="DbData">
+      <result column="序号" property="RowNum"/>
+      <result column="日期时刻" property="RiQiShiKe"/>
+      <result column="盘号" property="PanHao"/>
+      <result column="配比号" property="PeiBiHao"/>
+      <result column="车号" property="CheHao"/>
+      <result column="客户号" property="KeHuHao"/>
+      <result column="骨料6" property="GuLiao6"/>
+      <result column="骨料5" property="GuLiao5"/>
+      <result column="骨料4" property="GuLiao4"/>
+      <result column="骨料3" property="GuLiao3"/>
+      <result column="骨料2" property="GuLiao2"/>
+      <result column="骨料1" property="GuLiao1"/>
+      <result column="石粉3" property="ShiFen3"/>
+      <result column="石粉2" property="ShiFen2"/>
+      <result column="石粉1" property="ShiFen1"/>
+      <result column="沥青" property="LiQing"/>
+      <result column="合计Kg" property="HeJi"/>
+      <result column="一仓温度" property="YiCangWd"/>
+      <result column="混合料温度" property="HunHeLiaoWd"/>
+      <result column="除尘器入口温度" property="ChuChenQiWd"/>
+      <result column="沥青温度" property="LiQingWd"/>
+      <result column="骨料温度" property="GuLiaoWd"/> 
+    </resultMap>
+    
+  </resultMaps>
+
+  <statements>
+    <select id="QueryDbData" parameterClass="Hashtable" resultMap="DbDataResult">
+      SELECT * FROM (
+      SELECT
+      ROW_NUMBER() OVER(ORDER BY RiQiShiKe DESC) AS 序号,
+      convert(varchar(20),RiQiShiKe,20) as 日期时刻,
+      PanHao as 盘号,
+      PeiBiHao as 配比号,
+      CheHao as 车号,
+      KeHuHao as 客户号,
+      round(GuLiao6, 2) as 骨料6,
+      round(GuLiao5, 2) as 骨料5,
+      round(GuLiao4, 2) as 骨料4,
+      round(GuLiao3, 2) as 骨料3,
+      round(GuLiao2, 2) as 骨料2,
+      round(GuLiao1, 2) as 骨料1,
+      round(ShiFen3, 2) as 石粉3,
+      round(ShiFen2, 2) as 石粉2,
+      round(ShiFen1, 2) as 石粉1,
+      round(LiQing, 2) as 沥青,
+      round(HeJi, 2) as 合计Kg,
+      YiCangWd as 一仓温度,
+      HunHeLiaoWd as 混合料温度,
+      ChuChenQiWd as 除尘器入口温度,
+      LiQingWd as 沥青温度,
+      GuLiaoWd as 骨料温度
+      FROM dbData
+      <isNotEqual property="IsAutoQuery" compareValue="true">
+        WHERE RiQiShiKe BETWEEN '$StartTime$' AND '$EndTime$'
+      </isNotEqual>
+      ) AS T
+      WHERE 序号 BETWEEN ($PageNumber$ - 1) * $PageSize$ + 1 AND $PageNumber$ * $PageSize$
+    </select>
+
+    <select id="QueryDbDataCount" parameterClass="Hashtable">
+      SELECT COUNT(*)
+      FROM dbData
+      <isNotEqual property="IsAutoQuery" compareValue="true">
+        WHERE RiQiShiKe BETWEEN '$StartTime$' AND '$EndTime$'
+      </isNotEqual>
+    </select>
+    
+    <insert id="InsertDbData" parameterClass="DbData">
+      INSERT INTO dbData
+      (
+      riQiShiKe ,
+      panHao ,
+      peiBiHao ,
+      cheHao ,
+      keHuHao ,
+      guLiao6 ,
+      guLiao5 ,
+      guLiao4 ,
+      guLiao3 ,
+      guLiao2 ,
+      guLiao1 ,
+      shiFen3 ,
+      shiFen2 ,
+      shiFen1 ,
+      liQing ,
+      heJi ,
+      yiCangWd ,
+      hunHeLiaoWd ,
+      chuChenQiWd ,
+      liQingWd ,
+      guLiaoWd
+      )
+      values
+      (
+      '$RiQiShiKe$',
+      '$PanHao$',
+      '$PeiBiHao$',
+      '$CheHao$',
+      '$KeHuHao$',
+      '$GuLiao6$',
+      '$GuLiao5$',
+      '$GuLiao4$',
+      '$GuLiao3$',
+      '$GuLiao2$',
+      '$GuLiao1$',
+      '$ShiFen3$',
+      '$ShiFen2$',
+      '$ShiFen1$',
+      '$LiQing$',
+      '$HeJi$',
+      '$YiCangWd$',
+      '$HunHeLiaoWd$',
+      '$ChuChenQiWd$',
+      '$LiQingWd$',
+      '$GuLiaoWd$'
+      )
+    </insert>
+
+    <insert id="InsertDbSms" parameterClass="DbSms">
+      INSERT INTO dbSMS
+      (
+      日期时刻,
+      是否报警,
+      报警内容
+      )
+      VALUES
+      (
+      '$Time$',
+      '$IsAlarm$',
+      '$AlarmContent$'
+      )
+    </insert>
+  </statements>
+</sqlMap>

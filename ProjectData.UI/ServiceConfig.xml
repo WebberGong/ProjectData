@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ServiceConfigs>
+  <ServiceConfig>
+    <ServiceName>ProjectDataService</ServiceName>
+    <Url>http://localhost:47921/</Url>
+  </ServiceConfig>
+</ServiceConfigs>
